@@ -2,7 +2,7 @@
 
 # ByteRoot VPN
 
-<a href="https://github.com/abdorabie2590/byteroot-vpn">
+<a href="https://github.com/0xArxploit/byteroot-vpn">
   <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=24&duration=2800&pause=700&color=7C3AED&center=true&vCenter=true&width=760&lines=Multi-protocol+VPN+server+manager;Ubuntu+22%E2%80%9326+%7C+Debian+10%2B;Built+for+x86_64+and+ARM64+VPS" alt="Animated ByteRoot VPN tagline" />
 </a>
 
@@ -119,7 +119,7 @@ It may also be usable on compatible VPS instances from other popular providers, 
 ## Installation
 
 ```bash
-git clone https://github.com/abdorabie2590/byteroot-vpn.git
+git clone https://github.com/0xArxploit/byteroot-vpn.git
 cd byteroot-vpn
 chmod +x install.sh
 sudo ./install.sh
