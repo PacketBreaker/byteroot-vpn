@@ -10,23 +10,27 @@
 
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-22%E2%80%9326-E95420?logo=ubuntu&logoColor=white)](https://ubuntu.com/)
 [![Debian](https://img.shields.io/badge/Debian-10%2B-A81D33?logo=debian&logoColor=white)](https://www.debian.org/)
-[![Architecture](https://img.shields.io/badge/CPU-x86__64%20%7C%20ARM64-2EA44F?logo=linux&logoColor=white)](#supported-operating-systems-and-architectures)
+[![Architecture](https://img.shields.io/badge/CPU-x86__64%20%7C%20ARM64-2EA44F?logo=linux&logoColor=white)](#intended-operating-systems-and-architectures)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**A multi-protocol VPN installation and management script with an interactive terminal control panel.**
+**A multi-protocol VPN installer with an interactive terminal control panel, for real-world VPSs.**
 
-Created by **Dev. Eng Abdelrahman Rabie**  
+Created by **Dev. Eng Abdelrahman Rabie**
 Telegram: [@PacketBreaker](https://t.me/PacketBreaker)
 
 </div>
 
 ---
 
+ByteRoot is designed to install SSH (direct, WebSocket-style and SSL/TLS), Vmess, Vless and Trojan on a fresh Ubuntu or Debian server, wire them together behind HAProxy so everything can share port 443, and give you a `byteroot` terminal panel to create accounts, set limits and watch traffic without touching config files by hand.
+
+> **Status:** personal project under active development. The descriptions below are design intent. No independent installation or connectivity validation has been performed on this code; see **Known limitations** for what is and is not enforced today.
+
 ## At a glance
 
 ```mermaid
 flowchart LR
-    VPS["☁️ VPS provider"] --> OS{"🖥️ Supported OS"}
+    VPS["☁️ VPS provider"] --> OS{"🖥️ Target OS"}
     OS --> UB["🟠 Ubuntu 22–26"]
     OS --> DEB["🔴 Debian 10+"]
     UB --> ARCH{"⚙️ CPU architecture"}
@@ -85,34 +89,23 @@ Port **443** is shared by **Stunnel (SSH-SSL)** and **Nginx (TLS WebSocket proto
 - Clear caches and system logs
 - Cron-based enforcement to lock or remove expired accounts and accounts that exceed their data allowance
 
-## Supported operating systems and architectures
+## Intended operating systems and architectures
 
-### Operating systems
+These are the installer's intended targets, as designed. They are not independently verified: compatibility on a particular VPS also depends on the provider's image, available packages, and system configuration.
 
-| Distribution | Supported versions |
+### Operating systems (intended)
+
+| Distribution | Intended versions |
 |---|---|
 | Ubuntu | **22.04 through 26** |
 | Debian | **10 and later** |
 
-The installer is intended for the Ubuntu and Debian release ranges listed above. Compatibility on a particular VPS also depends on the provider's image, available packages, and system configuration.
-
-### CPU architectures
+### CPU architectures (intended)
 
 - **x86_64 / AMD64**
-- **ARM64 / AArch64**, including Oracle Cloud's **Ampere A1** instances
+- **ARM64 / AArch64**
 
-ByteRoot VPN is designed to run on these two major VPS CPU architectures; it is **not limited to one hosting company**. Other CPU architectures are not claimed as supported unless separately tested.
-
-### VPS providers
-
-The project identifies the following providers as tested environments:
-
-- [DigitalOcean](https://www.digitalocean.com/)
-- [Hostinger](https://www.hostinger.com/)
-- [Contabo](https://contabo.com/)
-- [Oracle Cloud Infrastructure](https://www.oracle.com/cloud/)
-
-It may also be usable on compatible VPS instances from other popular providers, including [Hetzner](https://www.hetzner.com/), [Vultr](https://www.vultr.com/), [Akamai Connected Cloud (Linode)](https://www.linode.com/), [OVHcloud](https://www.ovhcloud.com/), [Amazon Web Services](https://aws.amazon.com/), [Google Cloud](https://cloud.google.com/), and [Microsoft Azure](https://azure.microsoft.com/), provided the instance uses a supported Ubuntu/Debian release and x86_64 or ARM64 architecture. These additional providers are **not listed as tested by this project**.
+Other CPU architectures are not targeted. No specific VPS provider is certified or tested by this project; any provider offering a supported OS release on x86_64 or ARM64 may work, and no provider is endorsed.
 
 ---
 
@@ -147,6 +140,10 @@ byteroot-vpn/
 ```
 
 > **Note:** `install.sh` is self-contained and creates the files listed above directly on the server during installation. The files in `scripts/` are reference copies for reviewing or editing the code before upload.
+
+## Transport note: SSH "WebSocket" proxy
+
+The SSH WebSocket proxy answers the client's HTTP request with `101 Switching Protocols` and then pipes raw traffic, without RFC 6455 WebSocket framing (the installer's own code comment calls it a "fake HTTP/WS upgrade request"). This is the style injector-type clients such as HTTP Injector or KPN Tunnel expect; standards-compliant WebSocket clients are not interoperable with it. The Vmess/Vless/Trojan paths go through Nginx and their respective cores with proper upgrade handling and are unaffected by this limitation.
 
 ## Known limitations
 
