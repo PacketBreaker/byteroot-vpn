@@ -2,7 +2,7 @@
 
 # ByteRoot VPN
 
-<a href="https://github.com/0xArxploit/byteroot-vpn">
+<a href="https://github.com/PacketBreaker/byteroot-vpn">
   <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=24&duration=2800&pause=700&color=7C3AED&center=true&vCenter=true&width=760&lines=Multi-protocol+VPN+server+manager;Ubuntu+22%E2%80%9326+%7C+Debian+10%2B;Built+for+x86_64+and+ARM64+VPS" alt="Animated ByteRoot VPN tagline" />
 </a>
 
@@ -112,7 +112,7 @@ Other CPU architectures are not targeted. No specific VPS provider is certified 
 ## Installation
 
 ```bash
-git clone https://github.com/0xArxploit/byteroot-vpn.git
+git clone https://github.com/PacketBreaker/byteroot-vpn.git
 cd byteroot-vpn
 chmod +x install.sh
 sudo ./install.sh
@@ -154,6 +154,8 @@ The SSH WebSocket proxy answers the client's HTTP request with `101 Switching Pr
 ## Support
 
 For help or questions, contact us on Telegram: [@PacketBreaker](https://t.me/PacketBreaker)
+
+[abdelrahmanrabie.24@gmail.com](mailto:abdelrahmanrabie.24@gmail.com)
 
 ## License
 
